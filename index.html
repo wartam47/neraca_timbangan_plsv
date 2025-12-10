@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neraca Timbangan PLSV</title>
+    
+    <!-- Import Font Modern 'Poppins' dari Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            box-sizing: border-box;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        h1 {
+            color: blue; /* KEMBALI KE BIRU */
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* --- Gaya Tombol Petunjuk --- */
+        #btn-help {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-family: 'Poppins', sans-serif;
+        }
+        #btn-help:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        }
+
+        /* --- Gaya Pop-up Modal --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(44, 62, 80, 0.7);
+            backdrop-filter: blur(5px); 
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto; 
+            padding: 0;
+            border: none;
+            width: 90%; 
+            max-width: 650px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+            animation: slideDown 0.4s;
+            overflow: hidden;
+        }
+
+        @keyframes slideDown {
+            from {top: -50px; opacity: 0;}
+            to {top: 0; opacity: 1;}
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: none;
+            padding: 0;
+            color: white;
+        }
+
+        .close-btn {
+            color: rgba(255,255,255,0.8);
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: white;
+        }
+
+        .modal-body {
+            padding: 30px;
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .modal-body ol {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        
+        .modal-body li {
+            margin-bottom: 15px;
+        }
+        
+        .modal-alert {
+            background-color: #fff8e1;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #ffc107;
+            margin: 20px 0;
+            font-size: 0.95em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            border: 1px solid #eee;
+            text-align: left;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        /* --- FORM KHUSUS (SETUP CARD) --- */
+        .setup-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 550px;
+            margin-bottom: 30px;
+            border-top: 6px solid #3498db;
+        }
+
+        .setup-card h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            color: #555;
+            text-align: center;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            flex-wrap: wrap; /* PERBAIKAN: Agar input tidak hilang di layar kecil */
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-label {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .form-control {
+            width: 65px;
+            font-size: 1.4em;
+            padding: 8px;
+            text-align: center;
+            border: 2px solid #dfe6e9;
+            border-radius: 10px;
+            transition: all 0.3s;
+            background-color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-control:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-symbol {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #7f8c8d;
+            margin-top: 24px;
+        }
+        
+        .input-with-suffix {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .input-with-suffix span {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #34495e;
+        }
+
+        #btn-generate {
+            width: 100%;
+            font-size: 1.1em;
+            padding: 14px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        #btn-generate:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        #btn-generate:active {
+            transform: scale(0.98);
+        }
+
+        /* --- DISPLAY PERSAMAAN --- */
+        #equation-display {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 10px 0;
+            padding: 15px 40px;
+            background-color: #fff;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            min-height: 1.5em;
+            color: #2c3e50;
+            border: 2px solid #ecf0f1;
+            display: none;
+            letter-spacing: 1px;
+        }
+
+        #status-message-container {
+            min-height: 40px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #message {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        
+        .success { color: #27ae60; }
+        .error { color: #e74c3c; }
+        .info { color: #3498db; }
+
+        /* --- VISUAL NERACA --- */
+        .balance-scale {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            height: 350px;
+            margin: 10px auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .balance-scale::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 200px;
+            height: 25px;
+            background: linear-gradient(to bottom, #7f8c8d, #2c3e50);
+            border-radius: 10px 10px 5px 5px;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .balance-scale::after {
+            content: '';
+            position: absolute;
+            bottom: 25px;
+            width: 24px;
+            height: 240px;
+            background: linear-gradient(to right, #95a5a6, #7f8c8d);
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .crossbar-container {
+            position: absolute;
+            top: 70px;
+            width: 100%;
+            height: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transform-origin: center center;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2;
+        }
+        .crossbar-container::before {
+            content: '';
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            height: 100%;
+            background: linear-gradient(to bottom, #d35400, #a04000);
+            border-radius: 5px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Styling baru untuk Gantungan agar terlihat */
+        .hanger-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #7f8c8d;
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .fulcrum {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 25px solid #7f8c8d;
+            z-index: 3;
+        }
+
+        .pan-wrapper {
+            position: absolute;
+            width: 180px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #pan-left-wrapper { left: 10%; }
+        #pan-right-wrapper { right: 10%; }
+
+        .pan-rope {
+            width: 4px;
+            height: 130px;
+            background-color: #95a5a6;
+            position: absolute;
+            top: -130px;
+            z-index: 1;
+        }
+
+        .pan {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #ecf0f1, #bdc3c7);
+            border: 3px solid #34495e;
+            border-radius: 0 0 20px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: flex-end;
+            padding-bottom: 10px;
+            font-size: 1.8em;
+            padding: 10px;
+            box-sizing: border-box;
+            box-shadow: inset 0 -5px 15px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+            overflow-y: auto;
+        }
+
+        .item {
+            margin: 2px;
+            animation: bounceIn 0.5s;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- KONTROL MANUAL --- */
+        .controls-wrapper {
+            width: 100%;
+            max-width: 800px;
+            margin: 10px auto 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .pan-controls {
+            flex: 1;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .pan-controls:hover {
+            transform: translateY(-2px);
+        }
+        
+        .pan-controls h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #34495e;
+            border-bottom: 2px solid #f1f2f6;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .pan-controls button {
+            font-size: 1.2em;
+            font-weight: bold;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+        }
+        .pan-controls button:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+        
+        .btn-pos-add { background-color: #2ecc71; color: white; }
+        .btn-pos-sub { background-color: #f1c40f; color: white; }
+        .btn-neg-add { background-color: #e74c3c; color: white; }
+        .btn-neg-sub { background-color: #f39c12; color: white; }
+
+        .pan-controls button:hover:not(:disabled) {
+            filter: brightness(1.1);
+        }
+        .pan-controls button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            box-shadow: none;
+            background-color: #bdc3c7;
+        }
+
+        .main-controls {
+            margin-top: 30px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .btn-divide {
+            font-size: 1.1em;
+            padding: 12px 25px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background-color: #9b59b6;
+            color: white;
+            display: none;
+            box-shadow: 0 5px 0 #8e44ad;
+            transition: all 0.1s;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-divide:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+        
+        #btn-reset {
+            font-size: 1.1em;
+            padding: 12px 25px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background-color: #e67e22;
+            color: white;
+            box-shadow: 0 5px 0 #d35400;
+            transition: all 0.1s;
+            display: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+        #btn-reset:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 40px;
+            padding-bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #95a5a6;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>NERACA TIMBANGAN PLSV</h1>
+
+    <button id="btn-help">Petunjuk Penggunaan</button>
+
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Petunjuk Penggunaan</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li><strong>Atur Persamaan</strong> dengan memasukkan nilai <em>a, b,</em> dan <em>c</em> pada panel di atas. Nilai dapat berupa bilangan positif atau negatif. 
+                        <div class="modal-alert">
+                            ⚠️ <strong>Syarat Penting:</strong> Persamaan yang dibuat harus memenuhi kriteria <strong>b + c harus habis dibagi oleh koefisien variabel <em>a</em>.</strong>
+                        </div>
+                    </li>
+                    <li><strong>Pahami Simbol Visual</strong>
+                        <div class="legend-grid">
+                            <div class="legend-item">📦 <strong>Kotak</strong> = Variabel Positif (x)</div>
+                            <div class="legend-item">🛍️ <strong>Tas</strong> = Variabel Negatif (-x)</div>
+                            <div class="legend-item">🔵 <strong>Kelereng</strong> = Satuan Positif (+1)</div>
+                            <div class="legend-item">🎈 <strong>Balon</strong> = Satuan Negatif (-1)</div>
+                        </div>
+                    </li>
+                    <li><strong>Prinsip Keseimbangan</strong> yaitu bahwa neraca harus selalu seimbang. Apapun yang Anda tambahkan atau kurangi di sisi kiri, <strong>wajib</strong> dilakukan juga di sisi kanan.</li>
+                    <li><strong>Langkah Eliminasi Konstanta</strong> yaitu menghilangkan kelereng/balon yang satu ruas dengan variabel (ruas kiri). Jangan lupa poin 3 tentang prinsip keseimbangan 
+                        <br><em>Tips: Gunakan lawan jenisnya. Jika ada 3 balon (-3), tambahkan 3 kelereng (+3) agar menjadi nol.</em>
+                    </li>
+                    <li><strong>Langkah Mencari Nilai x</strong> yaitu saat variabel sudah sendirian dan neraca seimbang, tombol ungu <strong>"Bagi..."</strong> akan muncul otomatis. Klik untuk mendapatkan solusi akhir.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Setup Card dengan Flex Wrap Fix -->
+    <div class="setup-card">
+        <h2>Atur Persamaan</h2>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label" for="input-a">Koefisien (a)</label>
+                <div class="input-with-suffix">
+                    <input type="number" id="input-a" value="0" class="form-control">
+                    <span>x</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="input-op">Operasi</label>
+                <select id="input-op" class="form-control" style="width: auto;">
+                    <option value="add">+</option>
+                    <option value="subtract">-</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="input-b">Konstanta (b)</label>
+                <input type="number" id="input-b" value="0" class="form-control">
+            </div>
+
+            <div class="form-symbol">=</div>
+
+            <div class="form-group">
+                <label class="form-label" for="input-c">Hasil (c)</label>
+                <input type="number" id="input-c" value="0" class="form-control">
+            </div>
+        </div>
+        <button id="btn-generate">Mulai Simulasi</button>
+    </div>
+
+    <div id="equation-display"></div>
+    
+    <div id="status-message-container">
+        <p id="message"></p>
+    </div>
+
+    <div class="balance-scale">
+        <div class="crossbar-container" id="crossbar">
+            <div class="fulcrum"></div>
+            <!-- Hanger points kini terlihat -->
+            <div class="hanger-point" id="hanger-left" style="left: 15%;"></div>
+            <div class="hanger-point" id="hanger-right" style="right: 15%;"></div>
+        </div>
+        
+        <div id="pan-left-wrapper" class="pan-wrapper">
+            <div class="pan-rope"></div>
+            <div class="pan" id="pan-left"></div>
+        </div>
+        
+        <div id="pan-right-wrapper" class="pan-wrapper">
+            <div class="pan-rope"></div>
+            <div class="pan" id="pan-right"></div>
+        </div>
+    </div>
+
+    <div class="controls-wrapper">
+        <div class="pan-controls" id="controls-left">
+            <h3>Sisi Kiri</h3>
+            <button id="btn-left-pos-add" class="btn-pos-add">+ 🔵</button>
+            <button id="btn-left-pos-sub" class="btn-pos-sub">- 🔵</button>
+            <button id="btn-left-neg-add" class="btn-neg-add">+ 🎈</button>
+            <button id="btn-left-neg-sub" class="btn-neg-sub">- 🎈</button>
+        </div>
+        <div class="pan-controls" id="controls-right">
+            <h3>Sisi Kanan</h3>
+            <button id="btn-right-pos-add" class="btn-pos-add">+ 🔵</button>
+            <button id="btn-right-pos-sub" class="btn-pos-sub">- 🔵</button>
+            <button id="btn-right-neg-add" class="btn-neg-add">+ 🎈</button>
+            <button id="btn-right-neg-sub" class="btn-neg-sub">- 🎈</button>
+        </div>
+    </div>
+    
+    <div class="main-controls">
+        <button id="btn-divide" class="btn-divide">Bagi</button>
+        <button id="btn-reset">Reset</button>
+    </div>
+
+    <div class="footer">
+        @2025 Created Wartam-SMPN 4 Majenang
+    </div>
+
+    <script>
+        // --- Modal / Pop-up Logic ---
+        const modal = document.getElementById("helpModal");
+        const btnHelp = document.getElementById("btn-help");
+        const spanClose = document.getElementsByClassName("close-btn")[0];
+
+        btnHelp.onclick = function() { modal.style.display = "block"; }
+        spanClose.onclick = function() { modal.style.display = "none"; }
+        window.onclick = function(event) { if (event.target == modal) { modal.style.display = "none"; } }
+
+        // --- Logika Simulasi ---
+        const panLeft = document.getElementById('pan-left');
+        const panRight = document.getElementById('pan-right');
+        const panLeftWrapper = document.getElementById('pan-left-wrapper');
+        const panRightWrapper = document.getElementById('pan-right-wrapper');
+        const crossbar = document.getElementById('crossbar'); 
+        const equationDisplay = document.getElementById('equation-display');
+        const statusMessageParagraph = document.getElementById('message'); 
+        
+        const btnGenerate = document.getElementById('btn-generate');
+        const btnReset = document.getElementById('btn-reset');
+        
+        const inputA = document.getElementById('input-a');
+        const inputOp = document.getElementById('input-op');
+        const inputB = document.getElementById('input-b');
+        const inputC = document.getElementById('input-c');
+
+        const manualControls = document.querySelectorAll('.pan-controls button');
+        const btnLeftPosAdd = document.getElementById('btn-left-pos-add');
+        const btnLeftPosSub = document.getElementById('btn-left-pos-sub');
+        const btnLeftNegAdd = document.getElementById('btn-left-neg-add');
+        const btnLeftNegSub = document.getElementById('btn-left-neg-sub');
+        const btnRightPosAdd = document.getElementById('btn-right-pos-add');
+        const btnRightPosSub = document.getElementById('btn-right-pos-sub');
+        const btnRightNegAdd = document.getElementById('btn-right-neg-add');
+        const btnRightNegSub = document.getElementById('btn-right-neg-sub');
+        
+        const btnDivide = document.getElementById('btn-divide');
+
+        let solutionX = 0;
+        let initialLeftX = 0, initialLeftPos = 0, initialLeftNeg = 0;
+        let initialRightX = 0, initialRightPos = 0, initialRightNeg = 0;
+        let currentLeftX = 0, currentLeftPos = 0, currentLeftNeg = 0;
+        let currentRightX = 0, currentRightPos = 0, currentRightNeg = 0;
+
+        const ITEM_X = '<div class="item">📦</div>';
+        const ITEM_NEG_X = '<div class="item">🛍️</div>'; // Simbol baru untuk -x
+        const ITEM_POS = '<div class="item">🔵</div>';
+        const ITEM_NEG = '<div class="item">🎈</div>';
+
+        function drawPans() {
+            let leftContent = '';
+            // Handle Positive and Negative X
+            if (currentLeftX > 0) {
+                for (let i = 0; i < currentLeftX; i++) leftContent += ITEM_X;
+            } else if (currentLeftX < 0) {
+                for (let i = 0; i < Math.abs(currentLeftX); i++) leftContent += ITEM_NEG_X;
+            }
+            
+            for (let i = 0; i < currentLeftPos; i++) leftContent += ITEM_POS;
+            for (let i = 0; i < currentLeftNeg; i++) leftContent += ITEM_NEG;
+            panLeft.innerHTML = leftContent;
+
+            let rightContent = '';
+            // Right side X usually 0, but good to handle logic same way
+            if (currentRightX > 0) {
+                for (let i = 0; i < currentRightX; i++) rightContent += ITEM_X;
+            } else if (currentRightX < 0) {
+                for (let i = 0; i < Math.abs(currentRightX); i++) rightContent += ITEM_NEG_X;
+            }
+
+            for (let i = 0; i < currentRightPos; i++) rightContent += ITEM_POS;
+            for (let i = 0; i < currentRightNeg; i++) rightContent += ITEM_NEG;
+            panRight.innerHTML = rightContent;
+        }
+
+        function displayMessage(text, type) {
+            statusMessageParagraph.textContent = text;
+            statusMessageParagraph.className = type;
+        }
+        
+        function setManualControlsEnabled(enabled) {
+            manualControls.forEach(button => button.disabled = !enabled);
+        }
+
+        function updateBalance() {
+            const weightX = solutionX;
+            const weightPos = 1;
+            const weightNeg = -1;
+
+            const totalLeftWeight = (currentLeftX * weightX) + (currentLeftPos * weightPos) + (currentLeftNeg * weightNeg);
+            const totalRightWeight = (currentRightX * weightX) + (currentRightPos * weightPos) + (currentRightNeg * weightNeg);
+
+            const difference = totalLeftWeight - totalRightWeight;
+
+            let rotation = 0;
+            let leftBottom = 0;
+            let rightBottom = 0;
+            const tiltAngle = 5;
+            const panShift = 15;
+            
+            btnDivide.style.display = 'none';
+
+            if (Math.abs(difference) < 0.01) { 
+                rotation = 0;
+                leftBottom = 0;
+                rightBottom = 0;
+                displayMessage('Timbangan seimbang!', 'success');
+
+                // --- LOGIKA BAGI (Disesuaikan untuk koefisien negatif) ---
+                // Cek Kiri: Apakah ada Var (Pos/Neg) dan Kosong Konstanta?
+                if (currentLeftX !== 0 && currentLeftX !== 1 && currentLeftPos === 0 && currentLeftNeg === 0 &&
+                    currentRightX === 0 && (currentRightPos > 0 || currentRightNeg > 0)) {
+                    
+                    let numerator = (currentRightPos > 0) ? currentRightPos : -currentRightNeg; // Gunakan nilai riil (- untuk balon)
+                    // Cek pembagian
+                    if (numerator % currentLeftX === 0) {
+                        displayMessage(`Bagus! Sekarang bagi kedua sisi dengan ${currentLeftX}.`, 'info');
+                        btnDivide.style.display = 'inline-block';
+                        btnDivide.textContent = `Bagi ${currentLeftX} pada kedua sisi`;
+                        setManualControlsEnabled(false);
+                    }
+                }
+                // Cek Kanan: Apakah ada Var (Pos/Neg) dan Kosong Konstanta?
+                else if (currentRightX !== 0 && currentRightX !== 1 && currentRightPos === 0 && currentRightNeg === 0 &&
+                         currentLeftX === 0 && (currentLeftPos > 0 || currentLeftNeg > 0)) {
+                    
+                    let numerator = (currentLeftPos > 0) ? currentLeftPos : -currentLeftNeg;
+                    if (numerator % currentRightX === 0) {
+                        displayMessage(`Bagus! Sekarang bagi kedua sisi dengan ${currentRightX}.`, 'info');
+                        btnDivide.style.display = 'inline-block';
+                        btnDivide.textContent = `Bagi ${currentRightX} pada kedua sisi`;
+                        setManualControlsEnabled(false);
+                    }
+                }
+                // --- LOGIKA SOLUSI ---
+                // Kiri = 1x
+                else if (currentLeftX === 1 && currentLeftPos === 0 && currentLeftNeg === 0 && currentRightX === 0) {
+                    let res = (currentRightPos > 0) ? currentRightPos : -currentRightNeg;
+                    displayMessage(`Solusi ditemukan! x = ${res}`, 'success');
+                    setManualControlsEnabled(false);
+                }
+                // Kanan = 1x
+                else if (currentRightX === 1 && currentRightPos === 0 && currentRightNeg === 0 && currentLeftX === 0) {
+                    let res = (currentLeftPos > 0) ? currentLeftPos : -currentLeftNeg;
+                    displayMessage(`Solusi ditemukan! x = ${res}`, 'success');
+                    setManualControlsEnabled(false);
+                }
+                
+            } else if (difference > 0) { 
+                rotation = -tiltAngle;
+                leftBottom = -panShift;
+                rightBottom = panShift;
+                displayMessage('Timbangan miring! Sisi kiri lebih berat.', 'info');
+            } else { 
+                rotation = tiltAngle;
+                leftBottom = panShift;
+                rightBottom = -panShift;
+                displayMessage('Timbangan miring! Sisi kanan lebih berat.', 'info');
+            }
+
+            crossbar.style.transform = `rotate(${rotation}deg)`;
+            panLeftWrapper.style.bottom = `${leftBottom}px`;
+            panRightWrapper.style.bottom = `${rightBottom}px`;
+        }
+        
+        function performDivide() {
+            // Logika pembagian disesuaikan untuk koefisien negatif
+            if (currentLeftX !== 0) { 
+                let divisor = currentLeftX;
+                currentLeftX = 1; // Selalu menjadi 1x positif
+                
+                // Hitung nilai kanan
+                let rightVal = (currentRightPos > 0) ? currentRightPos : -currentRightNeg;
+                let newVal = rightVal / divisor;
+                
+                // Update tampilan kanan
+                if (newVal > 0) {
+                    currentRightPos = newVal;
+                    currentRightNeg = 0;
+                } else {
+                    currentRightPos = 0;
+                    currentRightNeg = Math.abs(newVal);
+                }
+
+            } else if (currentRightX !== 0) { 
+                let divisor = currentRightX;
+                currentRightX = 1;
+                
+                let leftVal = (currentLeftPos > 0) ? currentLeftPos : -currentLeftNeg;
+                let newVal = leftVal / divisor;
+                
+                if (newVal > 0) {
+                    currentLeftPos = newVal;
+                    currentLeftNeg = 0;
+                } else {
+                    currentLeftPos = 0;
+                    currentLeftNeg = Math.abs(newVal);
+                }
+            }
+            
+            btnDivide.style.display = 'none';
+            setManualControlsEnabled(true);
+            
+            drawPans();
+            updateBalance();
+        }
+
+        function generateEquation() {
+            const valA = parseInt(inputA.value);
+            const valB = parseInt(inputB.value);
+            const valC = parseInt(inputC.value);
+            const valOp = inputOp.value;
+
+            if (isNaN(valA) || isNaN(valB) || isNaN(valC)) {
+                 displayMessage('ERROR: Semua nilai harus berupa angka.', 'error');
+                 return;
+            }
+            if (valA === 0) {
+                displayMessage('ERROR: Koefisien a tidak boleh 0.', 'error');
+                return;
+            }
+            
+            let numerator;
+            if (valOp === 'add') {
+                numerator = valC - valB; 
+            } else {
+                numerator = valC + valB;
+            }
+            
+            if (numerator % valA !== 0) {
+                let formula = (valOp === 'add') ? '(c-b)' : '(c+b)';
+                displayMessage(`ERROR: Gagal karena ${formula} (${numerator}) harus habis dibagi oleh a (${valA}).`, 'error');
+                return;
+            }
+            
+            solutionX = numerator / valA;
+            
+            initialLeftX = valA;
+            // Visualisasi b negatif
+            let effectiveB = (valOp === 'add') ? valB : -valB;
+            
+            if (effectiveB >= 0) {
+                initialLeftPos = effectiveB;
+                initialLeftNeg = 0;
+            } else {
+                initialLeftPos = 0;
+                initialLeftNeg = Math.abs(effectiveB);
+            }
+            
+            initialRightX = 0;
+            if (valC >= 0) {
+                initialRightPos = valC;
+                initialRightNeg = 0;
+            } else {
+                initialRightPos = 0;
+                initialRightNeg = Math.abs(valC);
+            }
+            
+            equationDisplay.style.display = 'block'; 
+            
+            let displaySign = '';
+            let displayB = Math.abs(valB);
+            
+            if (valOp === 'add') {
+                if (valB < 0) {
+                    displaySign = '-'; 
+                } else {
+                    displaySign = '+'; 
+                }
+            } else { 
+                if (valB < 0) {
+                    displaySign = '+'; 
+                } else {
+                    displaySign = '-'; 
+                }
+            }
+
+            let displayA = `${valA}x`;
+            if (valA === 1) {
+                displayA = "x";
+            } else if (valA === -1) {
+                displayA = "-x";
+            }
+
+            equationDisplay.textContent = `${displayA} ${displaySign} ${displayB} = ${valC}`;
+            
+            btnReset.style.display = 'inline-block'; 
+            
+            resetSimulation();
+        }
+        
+        function resetSimulation() {
+            currentLeftX = initialLeftX;
+            currentLeftPos = initialLeftPos;
+            currentLeftNeg = initialLeftNeg;
+            currentRightX = initialRightX;
+            currentRightPos = initialRightPos;
+            currentRightNeg = initialRightNeg;
+
+            setManualControlsEnabled(true);
+            btnDivide.style.display = 'none';
+            
+            drawPans();
+            updateBalance();
+        }
+        
+        function initEmptyState() {
+            setManualControlsEnabled(false);
+            btnDivide.style.display = 'none';
+            btnReset.style.display = 'none';
+            equationDisplay.style.display = 'none';
+            displayMessage('Masukkan nilai a, b, dan c lalu klik Mulai Simulasi', 'info');
+        }
+
+        btnLeftPosAdd.addEventListener('click', () => { currentLeftPos++; drawPans(); updateBalance(); });
+        btnLeftPosSub.addEventListener('click', () => { if (currentLeftPos > 0) currentLeftPos--; drawPans(); updateBalance(); });
+        btnLeftNegAdd.addEventListener('click', () => { currentLeftNeg++; drawPans(); updateBalance(); });
+        btnLeftNegSub.addEventListener('click', () => { if (currentLeftNeg > 0) currentLeftNeg--; drawPans(); updateBalance(); });
+
+        btnRightPosAdd.addEventListener('click', () => { currentRightPos++; drawPans(); updateBalance(); });
+        btnRightPosSub.addEventListener('click', () => { if (currentRightPos > 0) currentRightPos--; drawPans(); updateBalance(); });
+        btnRightNegAdd.addEventListener('click', () => { currentRightNeg++; drawPans(); updateBalance(); });
+        btnRightNegSub.addEventListener('click', () => { if (currentRightNeg > 0) currentRightNeg--; drawPans(); updateBalance(); });
+
+        btnGenerate.addEventListener('click', generateEquation);
+        btnReset.addEventListener('click', resetSimulation);
+        btnDivide.addEventListener('click', performDivide);
+
+        initEmptyState();
+
+    </script>
+
+</body>
+</html>
