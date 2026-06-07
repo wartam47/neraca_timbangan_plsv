@@ -20,28 +20,44 @@
             box-sizing: border-box;
             min-height: 100vh;
             position: relative;
+            margin: 0;
         }
 
         h1 {
-            color: blue; /* KEMBALI KE BIRU */
+            color: #2980b9;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             font-size: 2.2em;
             font-weight: 700;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
-        /* --- Gaya Tombol Petunjuk --- */
-        #btn-help {
-            background-color: #f39c12;
+        .subtitle {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* --- Area Tombol Atas --- */
+        .top-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* --- Gaya Tombol Petunjuk & Algoritma --- */
+        .btn-top {
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 30px;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            margin-bottom: 20px;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
@@ -49,10 +65,19 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             font-family: 'Poppins', sans-serif;
         }
+        
+        #btn-help {
+            background-color: #f39c12;
+        }
         #btn-help:hover {
             background-color: #e67e22;
             transform: translateY(-2px);
             box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        }
+
+        #btn-algo-show {
+            background-color: #9b59b6;
+            display: none; /* Dinonaktifkan di area atas */
         }
 
         /* --- Gaya Pop-up Modal --- */
@@ -89,12 +114,19 @@
         }
 
         .modal-header {
-            background: linear-gradient(135deg, #3498db, #2980b9);
             padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             color: white;
+        }
+
+        .header-blue {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .header-purple {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
         }
 
         .modal-header h2 {
@@ -148,6 +180,27 @@
             text-align: left;
         }
 
+        .congrats-banner {
+            background-color: #e8f8f0;
+            border: 2px dashed #2ecc71;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #27ae60;
+        }
+
+        .congrats-banner h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .congrats-banner p {
+            margin: 0;
+            font-size: 0.95em;
+        }
+
         .legend-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -167,24 +220,59 @@
             font-weight: 500;
         }
 
-        /* --- FORM KHUSUS (SETUP CARD) --- */
+        /* --- Algoritma Penyelesaian CSS --- */
+        .step-card {
+            background-color: #f8f9fa;
+            border-left: 5px solid #9b59b6;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .step-card h4 {
+            margin: 0 0 5px 0;
+            color: #8e44ad;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .step-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .math-block {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            background-color: #eaeef1;
+            padding: 4px 10px;
+            border-radius: 5px;
+            color: #2c3e50;
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 1.1rem;
+        }
+
+        /* --- FORM SETUP CARD --- */
         .setup-card {
             background-color: #fff;
-            padding: 30px;
+            padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             width: 100%;
-            max-width: 550px;
-            margin-bottom: 30px;
+            max-width: 600px;
+            margin-bottom: 25px;
             border-top: 6px solid #3498db;
         }
 
         .setup-card h2 {
             margin-top: 0;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #555;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: 600;
@@ -194,13 +282,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 15px;
+            margin-bottom: 20px;
             background-color: #f8f9fa;
             padding: 20px;
             border-radius: 15px;
             border: 1px solid #eee;
-            flex-wrap: wrap; /* PERBAIKAN: Agar input tidak hilang di layar kecil */
+            flex-wrap: wrap;
         }
 
         .form-group {
@@ -210,7 +298,7 @@
         }
 
         .form-label {
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: #7f8c8d;
             margin-bottom: 8px;
             font-weight: 600;
@@ -218,8 +306,8 @@
         }
 
         .form-control {
-            width: 65px;
-            font-size: 1.4em;
+            width: 70px;
+            font-size: 1.3em;
             padding: 8px;
             text-align: center;
             border: 2px solid #dfe6e9;
@@ -237,11 +325,18 @@
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
+        .form-control:disabled {
+            background-color: #ecf0f1;
+            color: #bdc3c7;
+            cursor: not-allowed;
+            border-color: #bdc3c7;
+        }
+
         .form-symbol {
             font-size: 1.8em;
             font-weight: bold;
             color: #7f8c8d;
-            margin-top: 24px;
+            margin-top: 20px;
         }
         
         .input-with-suffix {
@@ -269,21 +364,25 @@
             letter-spacing: 0.5px;
             font-family: 'Poppins', sans-serif;
         }
-        #btn-generate:hover {
+        #btn-generate:hover:not(:disabled) {
             background-color: #2980b9;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
-        #btn-generate:active {
-            transform: scale(0.98);
+        #btn-generate:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.6;
         }
 
         /* --- DISPLAY PERSAMAAN --- */
         #equation-display {
-            font-size: 2.5em;
+            font-size: 2.2em;
             font-weight: 700;
             margin: 10px 0;
-            padding: 15px 40px;
+            padding: 10px 40px;
             background-color: #fff;
             border-radius: 50px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
@@ -292,6 +391,7 @@
             border: 2px solid #ecf0f1;
             display: none;
             letter-spacing: 1px;
+            text-align: center;
         }
 
         #status-message-container {
@@ -301,236 +401,275 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            width: 100%;
+            max-width: 800px;
         }
 
         #message {
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: 600;
+            transition: all 0.3s;
+            padding: 5px 15px;
+            border-radius: 8px;
         }
         
-        .success { color: #27ae60; }
-        .error { color: #e74c3c; }
-        .info { color: #3498db; }
+        .success { color: #27ae60; background-color: #e8f8f0; }
+        .error { color: #e74c3c; background-color: #fdedec; }
+        .info { color: #2980b9; background-color: #ebf5fb; }
 
         /* --- VISUAL NERACA --- */
+        .balance-container {
+            width: 100%;
+            max-width: 800px;
+            height: 380px;
+            margin: 20px auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
         .balance-scale {
             position: relative;
-            width: 90%;
-            max-width: 800px;
-            height: 350px;
-            margin: 10px auto;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: flex-end;
         }
 
-        .balance-scale::before {
-            content: '';
+        .scale-stand {
             position: absolute;
             bottom: 0;
-            width: 200px;
-            height: 25px;
-            background: linear-gradient(to bottom, #7f8c8d, #2c3e50);
-            border-radius: 10px 10px 5px 5px;
-            z-index: 1;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .balance-scale::after {
-            content: '';
-            position: absolute;
-            bottom: 25px;
-            width: 24px;
-            height: 240px;
-            background: linear-gradient(to right, #95a5a6, #7f8c8d);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 250px;
+            background: linear-gradient(to right, #bdc3c7, #95a5a6, #7f8c8d);
             border-radius: 5px;
             z-index: 1;
+        }
+
+        .scale-base {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 20px;
+            background: linear-gradient(to bottom, #7f8c8d, #34495e);
+            border-radius: 10px 10px 0 0;
+            z-index: 2;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         .crossbar-container {
             position: absolute;
-            top: 70px;
-            width: 100%;
-            height: 20px;
+            top: 100px;
+            width: 80%;
+            height: 16px;
+            background: linear-gradient(to bottom, #d35400, #a04000);
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transform-origin: center center;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 2;
-        }
-        .crossbar-container::before {
-            content: '';
-            position: absolute;
-            left: 5%;
-            right: 5%;
-            height: 100%;
-            background: linear-gradient(to bottom, #d35400, #a04000);
-            border-radius: 5px;
-            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
-        }
-
-        /* Styling baru untuk Gantungan agar terlihat */
-        .hanger-point {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background-color: #7f8c8d;
-            border-radius: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 5;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 3;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
         }
 
         .fulcrum {
             position: absolute;
-            top: -10px;
+            top: -12px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 25px solid #7f8c8d;
-            z-index: 3;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 20px solid #2c3e50;
+            z-index: 4;
         }
+
+        .hanger-point {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background-color: #2c3e50;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+        }
+        #hanger-left { left: 5%; }
+        #hanger-right { right: 5%; }
 
         .pan-wrapper {
             position: absolute;
-            width: 180px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 2;
+            transform-origin: top center;
         }
 
-        #pan-left-wrapper { left: 10%; }
-        #pan-right-wrapper { right: 10%; }
+        #pan-left-wrapper {
+            left: calc(10% - 40px);
+            top: 108px;
+        }
+
+        #pan-right-wrapper {
+            right: calc(10% - 40px);
+            top: 108px;
+        }
 
         .pan-rope {
-            width: 4px;
-            height: 130px;
-            background-color: #95a5a6;
+            width: 100%;
+            height: 80px;
+            position: relative;
+        }
+
+        .pan-rope::before, .pan-rope::after {
+            content: '';
             position: absolute;
-            top: -130px;
-            z-index: 1;
+            top: 0;
+            width: 2px;
+            height: 82px;
+            background-color: #7f8c8d;
+            transform-origin: top center;
+        }
+
+        .pan-rope::before {
+            left: 50%;
+            transform: rotate(-45deg);
+        }
+
+        .pan-rope::after {
+            left: 50%;
+            transform: rotate(45deg);
         }
 
         .pan {
             width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, #ecf0f1, #bdc3c7);
-            border: 3px solid #34495e;
-            border-radius: 0 0 20px 20px;
+            height: 110px;
+            background: linear-gradient(to bottom, #f1f2f6, #ced6e0);
+            border: 4px solid #2c3e50;
+            border-radius: 0 0 45px 45px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-content: flex-end;
-            padding-bottom: 10px;
-            font-size: 1.8em;
+            align-content: flex-start;
             padding: 10px;
             box-sizing: border-box;
-            box-shadow: inset 0 -5px 15px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 2;
+            box-shadow: inset 0 -8px 15px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.15);
             overflow-y: auto;
+            gap: 4px;
         }
 
-        .item {
-            margin: 2px;
-            animation: bounceIn 0.5s;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
-        }
-
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.3); }
-            50% { opacity: 1; transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
-
-        /* --- KONTROL MANUAL --- */
+        /* --- KONTROL MANUAL SISI --- */
         .controls-wrapper {
             width: 100%;
             max-width: 800px;
-            margin: 10px auto 0;
+            margin: 20px auto 0;
             display: flex;
             justify-content: space-between;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .pan-controls {
             flex: 1;
+            min-width: 280px;
             padding: 20px;
             background: #fff;
-            border: 1px solid #eee;
-            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            transition: all 0.3s;
         }
+        
         .pan-controls:hover {
             transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
         }
         
         .pan-controls h3 {
             margin-top: 0;
             margin-bottom: 15px;
             font-size: 1.1em;
-            color: #34495e;
+            color: #2c3e50;
             border-bottom: 2px solid #f1f2f6;
             padding-bottom: 10px;
             font-weight: 600;
         }
 
+        .control-btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
         .pan-controls button {
-            font-size: 1.2em;
-            font-weight: bold;
-            width: 50px;
-            height: 50px;
-            margin: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 10px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-family: 'Poppins', sans-serif;
+            color: white;
         }
+        
         .pan-controls button:active {
             transform: translateY(4px);
             box-shadow: none;
         }
         
-        .btn-pos-add { background-color: #2ecc71; color: white; }
-        .btn-pos-sub { background-color: #f1c40f; color: white; }
-        .btn-neg-add { background-color: #e74c3c; color: white; }
-        .btn-neg-sub { background-color: #f39c12; color: white; }
+        .btn-pos-add { background-color: #2ecc71; }
+        .btn-pos-sub { background-color: #27ae60; }
+        .btn-neg-add { background-color: #e74c3c; }
+        .btn-neg-sub { background-color: #c0392b; }
 
         .pan-controls button:hover:not(:disabled) {
             filter: brightness(1.1);
         }
+        
         .pan-controls button:disabled {
-            opacity: 0.4;
+            opacity: 0.3;
             cursor: not-allowed;
             box-shadow: none;
-            background-color: #bdc3c7;
+            background-color: #bdc3c7 !important;
         }
 
+        /* --- UTAMA / NAVIGASI BAWAH --- */
         .main-controls {
             margin-top: 30px;
             text-align: center;
             display: flex;
             justify-content: center;
             gap: 15px;
+            width: 100%;
+            flex-wrap: wrap;
         }
         
         .btn-divide {
             font-size: 1.1em;
-            padding: 12px 25px;
+            padding: 12px 30px;
             cursor: pointer;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             background-color: #9b59b6;
             color: white;
             display: none;
@@ -539,17 +678,42 @@
             font-weight: 600;
             font-family: 'Poppins', sans-serif;
         }
+        .btn-divide:hover {
+            background-color: #a55ecc;
+        }
         .btn-divide:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+
+        #btn-algo-bottom-show {
+            font-size: 1.1em;
+            padding: 12px 30px;
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            background-color: #9b59b6;
+            color: white;
+            display: none;
+            box-shadow: 0 5px 0 #8e44ad;
+            transition: all 0.1s;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+        #btn-algo-bottom-show:hover {
+            background-color: #a55ecc;
+        }
+        #btn-algo-bottom-show:active {
             transform: translateY(5px);
             box-shadow: none;
         }
         
         #btn-reset {
             font-size: 1.1em;
-            padding: 12px 25px;
+            padding: 12px 30px;
             cursor: pointer;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             background-color: #e67e22;
             color: white;
             box-shadow: 0 5px 0 #d35400;
@@ -558,20 +722,40 @@
             font-weight: 600;
             font-family: 'Poppins', sans-serif;
         }
+        #btn-reset:hover {
+            background-color: #f39c12;
+        }
         #btn-reset:active {
             transform: translateY(5px);
             box-shadow: none;
         }
 
         .footer {
-            margin-top: auto;
-            padding-top: 40px;
+            margin-top: 40px;
+            padding-top: 20px;
             padding-bottom: 20px;
             width: 100%;
             text-align: center;
             color: #95a5a6;
             font-size: 0.9em;
             font-weight: 500;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* --- RESPONSIVITAS CANVAS --- */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.7em; }
+            .setup-card { padding: 15px; }
+            .form-row { padding: 10px; gap: 8px; }
+            .form-control { width: 55px; font-size: 1.1em; }
+            #equation-display { font-size: 1.6em; padding: 10px 20px; }
+            .pan-wrapper { width: 140px; height: 160px; }
+            #pan-left-wrapper { left: calc(5% - 10px); }
+            #pan-right-wrapper { right: calc(5% - 10px); }
+            .pan { height: 90px; }
+            .item { font-size: 1.3rem; width: 26px; height: 26px; }
+            .balance-container { height: 320px; }
+            .crossbar-container { top: 80px; }
         }
 
     </style>
@@ -579,55 +763,73 @@
 <body>
 
     <h1>NERACA TIMBANGAN PLSV</h1>
+    <div class="subtitle">Media Visualisasi Persamaan Linear Satu Variabel Interaktif</div>
 
-    <button id="btn-help">Petunjuk Penggunaan</button>
+    <div class="top-buttons">
+        <button id="btn-help" class="btn-top">💡 Petunjuk Penggunaan</button>
+        <button id="btn-algo-show" class="btn-top" style="display: none !important;">📝 Langkah Penyelesaian</button>
+    </div>
 
+    <!-- Modal Petunjuk Penggunaan -->
     <div id="helpModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header header-blue">
                 <h2>Petunjuk Penggunaan</h2>
                 <span class="close-btn">&times;</span>
             </div>
             <div class="modal-body">
                 <ol>
-                    <li><strong>Atur Persamaan</strong> dengan memasukkan nilai <em>a, b,</em> dan <em>c</em> pada panel di atas. Nilai dapat berupa bilangan positif atau negatif. 
+                    <li><strong>Atur Persamaan</strong> dengan memasukkan nilai Koefisien <em>(a)</em>, memilih Operasi (+/-), konstanta <em>(b)</em>, dan Hasil <em>(c)</em>.
                         <div class="modal-alert">
-                            ⚠️ <strong>Syarat Penting:</strong> Persamaan yang dibuat harus memenuhi kriteria <strong>b + c harus habis dibagi oleh koefisien variabel <em>a</em>.</strong>
+                            ⚠️ <strong>Syarat Pembelajaran:</strong> Nilai <strong>b + c harus habis dibagi a</strong>. Agar visualisasi kelereng/balon sempurna, persamaan harus menghasilkan solusi <strong>nilai x berupa bilangan bulat positif atau negatif</strong> (bukan desimal/pecahan).
                         </div>
                     </li>
-                    <li><strong>Pahami Simbol Visual</strong>
+                    <li><strong>Pahami Simbol Visual:</strong>
                         <div class="legend-grid">
-                            <div class="legend-item">📦 <strong>Kotak</strong> = Variabel Positif (x)</div>
+                            <div class="legend-item">📦 <strong>Kotak</strong> = Variabel Positif (+x)</div>
                             <div class="legend-item">🛍️ <strong>Tas</strong> = Variabel Negatif (-x)</div>
                             <div class="legend-item">🔵 <strong>Kelereng</strong> = Satuan Positif (+1)</div>
                             <div class="legend-item">🎈 <strong>Balon</strong> = Satuan Negatif (-1)</div>
                         </div>
                     </li>
-                    <li><strong>Prinsip Keseimbangan</strong> yaitu bahwa neraca harus selalu seimbang. Apapun yang Anda tambahkan atau kurangi di sisi kiri, <strong>wajib</strong> dilakukan juga di sisi kanan.</li>
-                    <li><strong>Langkah Eliminasi Konstanta</strong> yaitu menghilangkan kelereng/balon yang satu ruas dengan variabel (ruas kiri). Jangan lupa poin 3 tentang prinsip keseimbangan 
-                        <br><em>Tips: Gunakan lawan jenisnya. Jika ada 3 balon (-3), tambahkan 3 kelereng (+3) agar menjadi nol.</em>
+                    <li><strong>Prinsip Keadilan Neraca:</strong> Apapun tindakan manipulasi (menambah/mengurangi) yang Anda lakukan di sisi kiri, <strong>wajib dilakukan dalam jumlah dan jenis yang sama di sisi kanan</strong> agar neraca tetap seimbang!</li>
+                    <li><strong>Langkah Eliminasi:</strong> Singkirkan konstanta yang berada seruas dengan variabel menggunakan metode invers (lawan nilainya).
+                        <br><em>Tips: Jika ada 3 balon (-3) di sisi kiri, eliminasi dengan menambahkan 3 kelereng (+3) di KEDUA ruas. Kelereng dan Balon yang saling bertemu akan melebur menjadi netral (nol)!</em>
                     </li>
-                    <li><strong>Langkah Mencari Nilai x</strong> yaitu saat variabel sudah sendirian dan neraca seimbang, tombol ungu <strong>"Bagi..."</strong> akan muncul otomatis. Klik untuk mendapatkan solusi akhir.</li>
+                    <li><strong>Langkah Akhir:</strong> Ketika variabel sudah sendiri di satu ruas dan konstanta di ruas lainnya, tombol ungu <strong>"Bagi..."</strong> akan muncul. Klik tombol tersebut untuk membagi rata isi cawan dan mendapatkan nilai $x$.</li>
                 </ol>
             </div>
         </div>
     </div>
 
-    <!-- Setup Card dengan Flex Wrap Fix -->
+    <!-- Modal Algoritma Penyelesaian (Tampil di Akhir) -->
+    <div id="algoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header header-purple">
+                <h2 id="algo-modal-title">Langkah Aljabar Formal</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div id="algo-modal-body" class="modal-body">
+                <!-- Konten dinamis akan dimuat oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Setup Card Input Persamaan -->
     <div class="setup-card">
-        <h2>Atur Persamaan</h2>
+        <h2>Atur Persamaan Baru</h2>
         <div class="form-row">
             <div class="form-group">
                 <label class="form-label" for="input-a">Koefisien (a)</label>
                 <div class="input-with-suffix">
-                    <input type="number" id="input-a" value="0" class="form-control">
+                    <input type="number" id="input-a" value="0" class="form-control" min="-10" max="10">
                     <span>x</span>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="input-op">Operasi</label>
-                <select id="input-op" class="form-control" style="width: auto;">
+                <select id="input-op" class="form-control" style="width: auto; padding: 8px 12px;">
                     <option value="add">+</option>
                     <option value="subtract">-</option>
                 </select>
@@ -635,81 +837,112 @@
 
             <div class="form-group">
                 <label class="form-label" for="input-b">Konstanta (b)</label>
-                <input type="number" id="input-b" value="0" class="form-control">
+                <input type="number" id="input-b" value="0" class="form-control" min="0" max="20">
             </div>
 
             <div class="form-symbol">=</div>
 
             <div class="form-group">
                 <label class="form-label" for="input-c">Hasil (c)</label>
-                <input type="number" id="input-c" value="0" class="form-control">
+                <input type="number" id="input-c" value="0" class="form-control" min="-20" max="20">
             </div>
         </div>
         <button id="btn-generate">Mulai Simulasi</button>
     </div>
 
+    <!-- Tampilan Persamaan Riil saat ini -->
     <div id="equation-display"></div>
     
     <div id="status-message-container">
-        <p id="message"></p>
+        <p id="message">Silakan atur persamaan di atas dan klik "Mulai Simulasi"!</p>
     </div>
 
-    <div class="balance-scale">
-        <div class="crossbar-container" id="crossbar">
-            <div class="fulcrum"></div>
-            <!-- Hanger points kini terlihat -->
-            <div class="hanger-point" id="hanger-left" style="left: 15%;"></div>
-            <div class="hanger-point" id="hanger-right" style="right: 15%;"></div>
-        </div>
+    <!-- Ilustrasi Interaktif Neraca -->
+    <div class="balance-container">
+        <div class="scale-stand"></div>
+        <div class="scale-base"></div>
         
-        <div id="pan-left-wrapper" class="pan-wrapper">
-            <div class="pan-rope"></div>
-            <div class="pan" id="pan-left"></div>
-        </div>
-        
-        <div id="pan-right-wrapper" class="pan-wrapper">
-            <div class="pan-rope"></div>
-            <div class="pan" id="pan-right"></div>
+        <div class="balance-scale">
+            <div class="crossbar-container" id="crossbar">
+                <div class="fulcrum"></div>
+                <div class="hanger-point" id="hanger-left"></div>
+                <div class="hanger-point" id="hanger-right"></div>
+            </div>
+            
+            <div id="pan-left-wrapper" class="pan-wrapper">
+                <div class="pan-rope"></div>
+                <div class="pan" id="pan-left"></div>
+            </div>
+            
+            <div id="pan-right-wrapper" class="pan-wrapper">
+                <div class="pan-rope"></div>
+                <div class="pan" id="pan-right"></div>
+            </div>
         </div>
     </div>
 
+    <!-- Kontrol Manual Sisi Kiri & Sisi Kanan -->
     <div class="controls-wrapper">
         <div class="pan-controls" id="controls-left">
-            <h3>Sisi Kiri</h3>
-            <button id="btn-left-pos-add" class="btn-pos-add">+ 🔵</button>
-            <button id="btn-left-pos-sub" class="btn-pos-sub">- 🔵</button>
-            <button id="btn-left-neg-add" class="btn-neg-add">+ 🎈</button>
-            <button id="btn-left-neg-sub" class="btn-neg-sub">- 🎈</button>
+            <h3>Manipulasi Sisi Kiri</h3>
+            <div class="control-btn-grid">
+                <button id="btn-left-pos-add" class="btn-pos-add">+ 🔵 (Positif)</button>
+                <button id="btn-left-pos-sub" class="btn-pos-sub">- 🔵 (Ambil)</button>
+                <button id="btn-left-neg-add" class="btn-neg-add">+ 🎈 (Negatif)</button>
+                <button id="btn-left-neg-sub" class="btn-neg-sub">- 🎈 (Ambil)</button>
+            </div>
         </div>
         <div class="pan-controls" id="controls-right">
-            <h3>Sisi Kanan</h3>
-            <button id="btn-right-pos-add" class="btn-pos-add">+ 🔵</button>
-            <button id="btn-right-pos-sub" class="btn-pos-sub">- 🔵</button>
-            <button id="btn-right-neg-add" class="btn-neg-add">+ 🎈</button>
-            <button id="btn-right-neg-sub" class="btn-neg-sub">- 🎈</button>
+            <h3>Manipulasi Sisi Kanan</h3>
+            <div class="control-btn-grid">
+                <button id="btn-right-pos-add" class="btn-pos-add">+ 🔵 (Positif)</button>
+                <button id="btn-right-pos-sub" class="btn-pos-sub">- 🔵 (Ambil)</button>
+                <button id="btn-right-neg-add" class="btn-neg-add">+ 🎈 (Negatif)</button>
+                <button id="btn-right-neg-sub" class="btn-neg-sub">- 🎈 (Ambil)</button>
+            </div>
         </div>
     </div>
     
+    <!-- Tombol Eksekusi Global -->
     <div class="main-controls">
-        <button id="btn-divide" class="btn-divide">Bagi</button>
-        <button id="btn-reset">Reset</button>
+        <button id="btn-divide" class="btn-divide">Bagi Sisi</button>
+        <button id="btn-algo-bottom-show" class="btn-top">📝 Langkah Penyelesaian</button>
+        <button id="btn-reset">Reset Ulang</button>
     </div>
 
     <div class="footer">
-        @2025 Created Wartam-SMPN 4 Majenang
+        © 2026 Media Ajar Matematika - Dikembangkan oleh Wartam-SMPN 4 Majenang
     </div>
 
     <script>
         // --- Modal / Pop-up Logic ---
-        const modal = document.getElementById("helpModal");
+        const modalHelp = document.getElementById("helpModal");
+        const modalAlgo = document.getElementById("algoModal");
+        
         const btnHelp = document.getElementById("btn-help");
-        const spanClose = document.getElementsByClassName("close-btn")[0];
+        const btnAlgoBottomShow = document.getElementById("btn-algo-bottom-show");
+        
+        const spanCloseHelp = modalHelp.getElementsByClassName("close-btn")[0];
+        const spanCloseAlgo = modalAlgo.getElementsByClassName("close-btn")[0];
+        const algoModalTitle = document.getElementById("algo-modal-title");
+        const algoModalBody = document.getElementById("algo-modal-body");
 
-        btnHelp.onclick = function() { modal.style.display = "block"; }
-        spanClose.onclick = function() { modal.style.display = "none"; }
-        window.onclick = function(event) { if (event.target == modal) { modal.style.display = "none"; } }
+        btnHelp.onclick = function() { modalHelp.style.display = "block"; }
+        btnAlgoBottomShow.onclick = function() { 
+            // Judul bertema penyelesaian formal
+            algoModalTitle.textContent = "Langkah Aljabar Formal";
+            modalAlgo.style.display = "block"; 
+        }
+        
+        spanCloseHelp.onclick = function() { modalHelp.style.display = "none"; }
+        spanCloseAlgo.onclick = function() { modalAlgo.style.display = "none"; }
+        
+        window.onclick = function(event) { 
+            if (event.target == modalHelp) { modalHelp.style.display = "none"; } 
+            if (event.target == modalAlgo) { modalAlgo.style.display = "none"; } 
+        }
 
-        // --- Logika Simulasi ---
+        // --- DOM Elements ---
         const panLeft = document.getElementById('pan-left');
         const panRight = document.getElementById('pan-right');
         const panLeftWrapper = document.getElementById('pan-left-wrapper');
@@ -727,10 +960,14 @@
         const inputC = document.getElementById('input-c');
 
         const manualControls = document.querySelectorAll('.pan-controls button');
+        
+        // Buttons Sisi Kiri
         const btnLeftPosAdd = document.getElementById('btn-left-pos-add');
         const btnLeftPosSub = document.getElementById('btn-left-pos-sub');
         const btnLeftNegAdd = document.getElementById('btn-left-neg-add');
         const btnLeftNegSub = document.getElementById('btn-left-neg-sub');
+        
+        // Buttons Sisi Kanan
         const btnRightPosAdd = document.getElementById('btn-right-pos-add');
         const btnRightPosSub = document.getElementById('btn-right-pos-sub');
         const btnRightNegAdd = document.getElementById('btn-right-neg-add');
@@ -738,41 +975,67 @@
         
         const btnDivide = document.getElementById('btn-divide');
 
-        let solutionX = 0;
-        let initialLeftX = 0, initialLeftPos = 0, initialLeftNeg = 0;
-        let initialRightX = 0, initialRightPos = 0, initialRightNeg = 0;
+        // --- State Variables ---
+        let solutionX = 0; // Nilai asli matematika dari x
+        let simulationActive = false;
+        let solvedModalShown = false; // Penanda agar modal selebrasi tidak muncul berulang kali
+
+        // Status Item Saat ini di Cawan Timbangan
         let currentLeftX = 0, currentLeftPos = 0, currentLeftNeg = 0;
         let currentRightX = 0, currentRightPos = 0, currentRightNeg = 0;
 
-        const ITEM_X = '<div class="item">📦</div>';
-        const ITEM_NEG_X = '<div class="item">🛍️</div>'; // Simbol baru untuk -x
-        const ITEM_POS = '<div class="item">🔵</div>';
-        const ITEM_NEG = '<div class="item">🎈</div>';
+        // Visual Icons
+        const ITEM_X = '<div class="item" title="Variabel Positif (x)">📦</div>';
+        const ITEM_NEG_X = '<div class="item" title="Variabel Negatif (-x)">🛍️</div>'; 
+        const ITEM_POS = '<div class="item" title="Satuan Positif (+1)">🔵</div>';
+        const ITEM_NEG = '<div class="item" title="Satuan Negatif (-1)">🎈</div>';
 
+        // Nonaktifkan tombol manual saat belum mulai simulasi
+        setManualControlsEnabled(false);
+
+        // --- Render Fungsi Cawan ---
         function drawPans() {
+            // Leburkan kelereng (🔵) dan balon (🎈) yang bertemu di cawan yang sama (karena +1 + -1 = 0)
+            annihilateOpposites();
+
             let leftContent = '';
-            // Handle Positive and Negative X
             if (currentLeftX > 0) {
                 for (let i = 0; i < currentLeftX; i++) leftContent += ITEM_X;
             } else if (currentLeftX < 0) {
                 for (let i = 0; i < Math.abs(currentLeftX); i++) leftContent += ITEM_NEG_X;
             }
-            
             for (let i = 0; i < currentLeftPos; i++) leftContent += ITEM_POS;
             for (let i = 0; i < currentLeftNeg; i++) leftContent += ITEM_NEG;
             panLeft.innerHTML = leftContent;
 
             let rightContent = '';
-            // Right side X usually 0, but good to handle logic same way
             if (currentRightX > 0) {
                 for (let i = 0; i < currentRightX; i++) rightContent += ITEM_X;
             } else if (currentRightX < 0) {
                 for (let i = 0; i < Math.abs(currentRightX); i++) rightContent += ITEM_NEG_X;
             }
-
             for (let i = 0; i < currentRightPos; i++) rightContent += ITEM_POS;
             for (let i = 0; i < currentRightNeg; i++) rightContent += ITEM_NEG;
             panRight.innerHTML = rightContent;
+
+            // Render ekspresi matematis dinamis saat ini
+            updateLiveEquationDisplay();
+        }
+
+        // Peleburan kelereng & balon (+1 & -1) dalam satu wadah
+        function annihilateOpposites() {
+            // Cek Kiri
+            if (currentLeftPos > 0 && currentLeftNeg > 0) {
+                const min = Math.min(currentLeftPos, currentLeftNeg);
+                currentLeftPos -= min;
+                currentLeftNeg -= min;
+            }
+            // Cek Kanan
+            if (currentRightPos > 0 && currentRightNeg > 0) {
+                const min = Math.min(currentRightPos, currentRightNeg);
+                currentRightPos -= min;
+                currentRightNeg -= min;
+            }
         }
 
         function displayMessage(text, type) {
@@ -781,11 +1044,44 @@
         }
         
         function setManualControlsEnabled(enabled) {
-            manualControls.forEach(button => button.disabled = !enabled);
+            manualControls.forEach(button => {
+                button.disabled = !enabled;
+            });
+            // Update status tombol kurangi secara real-time berdasarkan isi cawan
+            if (enabled) {
+                updateSubtractButtonsState();
+            }
         }
 
+        // Fungsi pengunci seluruh panel input agar pengguna wajib menekan reset
+        function setInputsEnabled(enabled) {
+            inputA.disabled = !enabled;
+            inputOp.disabled = !enabled;
+            inputB.disabled = !enabled;
+            inputC.disabled = !enabled;
+            btnGenerate.disabled = !enabled;
+        }
+
+        function updateSubtractButtonsState() {
+            btnLeftPosSub.disabled = (currentLeftPos <= 0);
+            btnLeftNegSub.disabled = (currentLeftNeg <= 0);
+            btnRightPosSub.disabled = (currentRightPos <= 0);
+            btnRightNegSub.disabled = (currentRightNeg <= 0);
+        }
+
+        // Fungsi pemicu selebrasi di akhir simulasi (hanya tombol yang muncul, tidak otomatis membuka modal)
+        function showSolvedCelebrationModal() {
+            if (!solvedModalShown) {
+                solvedModalShown = true;
+                btnAlgoBottomShow.style.display = 'inline-flex'; // Munculkan tombol di area bawah HANYA setelah sukses
+                setInputsEnabled(false); // KUNCI total input dan tombol generate agar wajib menekan reset
+            }
+        }
+
+        // --- Logika Perhitungan Kemiringan Neraca ---
         function updateBalance() {
-            const weightX = solutionX;
+            // Berat variabel ditentukan oleh nilai riil solutionX
+            const weightX = solutionX; 
             const weightPos = 1;
             const weightNeg = -1;
 
@@ -795,87 +1091,137 @@
             const difference = totalLeftWeight - totalRightWeight;
 
             let rotation = 0;
-            let leftBottom = 0;
-            let rightBottom = 0;
-            const tiltAngle = 5;
-            const panShift = 15;
+            let leftY = 0;
+            let rightY = 0;
+            
+            const tiltMaxAngle = 12; // Sudut maksimal kemiringan lengan
+            const panShiftY = 30;    // Maksimal pergeseran cawan secara vertikal
             
             btnDivide.style.display = 'none';
 
-            if (Math.abs(difference) < 0.01) { 
+            // Jika seimbang secara matematis
+            if (Math.abs(difference) < 0.001) { 
                 rotation = 0;
-                leftBottom = 0;
-                rightBottom = 0;
-                displayMessage('Timbangan seimbang!', 'success');
+                leftY = 0;
+                rightY = 0;
+                displayMessage('Timbangan SEIMBANG! Lanjutkan menyederhanakan persamaan.', 'success');
 
-                // --- LOGIKA BAGI (Disesuaikan untuk koefisien negatif) ---
-                // Cek Kiri: Apakah ada Var (Pos/Neg) dan Kosong Konstanta?
-                if (currentLeftX !== 0 && currentLeftX !== 1 && currentLeftPos === 0 && currentLeftNeg === 0 &&
-                    currentRightX === 0 && (currentRightPos > 0 || currentRightNeg > 0)) {
+                // --- DETEKSI KONDISI SIAP BAGI ---
+                // Skenario A: Variabel di Sisi Kiri saja, Konstanta di Kanan saja (Termasuk jika konstanta = 0)
+                if (Math.abs(currentLeftX) > 1 && currentLeftPos === 0 && currentLeftNeg === 0 && currentRightX === 0) {
                     
-                    let numerator = (currentRightPos > 0) ? currentRightPos : -currentRightNeg; // Gunakan nilai riil (- untuk balon)
-                    // Cek pembagian
-                    if (numerator % currentLeftX === 0) {
-                        displayMessage(`Bagus! Sekarang bagi kedua sisi dengan ${currentLeftX}.`, 'info');
+                    let rightConst = currentRightPos > 0 ? currentRightPos : -currentRightNeg;
+                    // Cek kelayakan bagi (0 dibagi angka apapun hasilnya 0, jadi tetap lolos)
+                    if (rightConst % currentLeftX === 0) {
+                        displayMessage(`Sangat Bagus! Sisi kiri tinggal berisi ${currentLeftX}x. Klik tombol "Bagi Sisi" untuk mencari nilai x.`, 'info');
                         btnDivide.style.display = 'inline-block';
-                        btnDivide.textContent = `Bagi ${currentLeftX} pada kedua sisi`;
+                        btnDivide.textContent = `Bagi Kedua Sisi dengan ${currentLeftX}`;
                         setManualControlsEnabled(false);
                     }
                 }
-                // Cek Kanan: Apakah ada Var (Pos/Neg) dan Kosong Konstanta?
-                else if (currentRightX !== 0 && currentRightX !== 1 && currentRightPos === 0 && currentRightNeg === 0 &&
-                         currentLeftX === 0 && (currentLeftPos > 0 || currentLeftNeg > 0)) {
+                // Skenario B: Variabel di Sisi Kanan saja, Konstanta di Kiri saja (Termasuk jika konstanta = 0)
+                else if (Math.abs(currentRightX) > 1 && currentRightPos === 0 && currentRightNeg === 0 && currentLeftX === 0) {
                     
-                    let numerator = (currentLeftPos > 0) ? currentLeftPos : -currentLeftNeg;
-                    if (numerator % currentRightX === 0) {
-                        displayMessage(`Bagus! Sekarang bagi kedua sisi dengan ${currentRightX}.`, 'info');
+                    let leftConst = currentLeftPos > 0 ? currentLeftPos : -currentLeftNeg;
+                    if (leftConst % currentRightX === 0) {
+                        displayMessage(`Sangat Bagus! Sisi kanan tinggal berisi ${currentRightX}x. Klik tombol "Bagi Sisi" untuk mencari nilai x.`, 'info');
                         btnDivide.style.display = 'inline-block';
-                        btnDivide.textContent = `Bagi ${currentRightX} pada kedua sisi`;
+                        btnDivide.textContent = `Bagi Kedua Sisi dengan ${currentRightX}`;
                         setManualControlsEnabled(false);
                     }
-                }
-                // --- LOGIKA SOLUSI ---
-                // Kiri = 1x
-                else if (currentLeftX === 1 && currentLeftPos === 0 && currentLeftNeg === 0 && currentRightX === 0) {
-                    let res = (currentRightPos > 0) ? currentRightPos : -currentRightNeg;
-                    displayMessage(`Solusi ditemukan! x = ${res}`, 'success');
-                    setManualControlsEnabled(false);
-                }
-                // Kanan = 1x
-                else if (currentRightX === 1 && currentRightPos === 0 && currentRightNeg === 0 && currentLeftX === 0) {
-                    let res = (currentLeftPos > 0) ? currentLeftPos : -currentLeftNeg;
-                    displayMessage(`Solusi ditemukan! x = ${res}`, 'success');
-                    setManualControlsEnabled(false);
                 }
                 
+                // --- DETEKSI JAWABAN AKHIR (Solusi Ditemukan!) ---
+                // Skenario A: 1x = Nilai (Kiri ke Kanan)
+                else if (currentLeftX === 1 && currentLeftPos === 0 && currentLeftNeg === 0 && currentRightX === 0) {
+                    let finalVal = currentRightPos > 0 ? currentRightPos : -currentRightNeg;
+                    displayMessage(`🎉 Solusi Ditemukan! Nilai x = ${finalVal}. Klik tombol "Langkah Penyelesaian" untuk ulasan atau klik "Reset Ulang" untuk persamaan baru.`, 'success');
+                    setManualControlsEnabled(false);
+                    showSolvedCelebrationModal(); // <--- Menyiapkan menu langkah penyelesaian di bawah
+                }
+                // Skenario B: Nilai = 1x (Kanan ke Kiri)
+                else if (currentRightX === 1 && currentRightPos === 0 && currentRightNeg === 0 && currentLeftX === 0) {
+                    let finalVal = currentLeftPos > 0 ? currentLeftPos : -currentLeftNeg;
+                    displayMessage(`🎉 Solusi Ditemukan! Nilai x = ${finalVal}. Klik tombol "Langkah Penyelesaian" untuk ulasan atau klik "Reset Ulang" untuk persamaan baru.`, 'success');
+                    setManualControlsEnabled(false);
+                    showSolvedCelebrationModal(); // <--- Menyiapkan menu langkah penyelesaian di bawah
+                }
+                // Jika masih 0 = 0
+                else if (currentLeftX === 0 && currentLeftPos === 0 && currentLeftNeg === 0 &&
+                         currentRightX === 0 && currentRightPos === 0 && currentRightNeg === 0) {
+                    displayMessage('Timbangan Kosong dan Seimbang.', 'info');
+                }
+
             } else if (difference > 0) { 
-                rotation = -tiltAngle;
-                leftBottom = -panShift;
-                rightBottom = panShift;
-                displayMessage('Timbangan miring! Sisi kiri lebih berat.', 'info');
+                // Sisi kiri lebih berat
+                rotation = -tiltMaxAngle;
+                leftY = panShiftY;
+                rightY = -panShiftY;
+                displayMessage('Timbangan miring! Sisi KIRI lebih berat.', 'error');
             } else { 
-                rotation = tiltAngle;
-                leftBottom = panShift;
-                rightBottom = -panShift;
-                displayMessage('Timbangan miring! Sisi kanan lebih berat.', 'info');
+                // Sisi kanan lebih berat
+                rotation = tiltMaxAngle;
+                leftY = -panShiftY;
+                rightY = panShiftY;
+                displayMessage('Timbangan miring! Sisi KANAN lebih berat.', 'error');
             }
 
+            // Animasikan Transisi Transformasi CSS
             crossbar.style.transform = `rotate(${rotation}deg)`;
-            panLeftWrapper.style.bottom = `${leftBottom}px`;
-            panRightWrapper.style.bottom = `${rightBottom}px`;
+            panLeftWrapper.style.transform = `translateY(${leftY}px)`;
+            panRightWrapper.style.transform = `translateY(${rightY}px)`;
+            
+            // Jaga keseimbangan piringan cawan agar tetap horizontal ke bawah
+            panLeft.style.transform = `rotate(${-rotation}deg)`;
+            panRight.style.transform = `rotate(${-rotation}deg)`;
+            
+            updateSubtractButtonsState();
         }
-        
+
+        // --- Logika Update Live Formula ---
+        function updateLiveEquationDisplay() {
+            // Sisi Kiri Matematika
+            let leftStr = '';
+            if (currentLeftX !== 0) {
+                leftStr += (currentLeftX === 1 ? 'x' : (currentLeftX === -1 ? '-x' : currentLeftX + 'x'));
+            }
+            let leftConstVal = currentLeftPos - currentLeftNeg;
+            if (leftConstVal !== 0) {
+                if (leftConstVal > 0) {
+                    leftStr += (leftStr ? ' + ' : '') + leftConstVal;
+                } else {
+                    leftStr += (leftStr ? ' - ' : ' -') + Math.abs(leftConstVal);
+                }
+            }
+            if (!leftStr) leftStr = '0';
+
+            // Sisi Kanan Matematika
+            let rightStr = '';
+            if (currentRightX !== 0) {
+                rightStr += (currentRightX === 1 ? 'x' : (currentRightX === -1 ? '-x' : currentRightX + 'x'));
+            }
+            let rightConstVal = currentRightPos - currentRightNeg;
+            if (rightConstVal !== 0) {
+                if (rightConstVal > 0) {
+                    rightStr += (rightStr ? ' + ' : '') + rightConstVal;
+                } else {
+                    rightStr += (rightStr ? ' - ' : ' -') + Math.abs(rightConstVal);
+                }
+            }
+            if (!rightStr) rightStr = '0';
+
+            equationDisplay.innerHTML = `${leftStr} <span style="color:#e74c3c; margin: 0 10px;">=</span> ${rightStr}`;
+        }
+
+        // --- LOGIKA BAGI KEDUA RUAS ---
         function performDivide() {
-            // Logika pembagian disesuaikan untuk koefisien negatif
-            if (currentLeftX !== 0) { 
+            if (currentLeftX !== 0 && currentLeftX !== 1) { 
                 let divisor = currentLeftX;
-                currentLeftX = 1; // Selalu menjadi 1x positif
+                currentLeftX = 1; // Menjadi 1x
                 
-                // Hitung nilai kanan
-                let rightVal = (currentRightPos > 0) ? currentRightPos : -currentRightNeg;
+                let rightVal = currentRightPos > 0 ? currentRightPos : -currentRightNeg;
                 let newVal = rightVal / divisor;
                 
-                // Update tampilan kanan
                 if (newVal > 0) {
                     currentRightPos = newVal;
                     currentRightNeg = 0;
@@ -883,12 +1229,11 @@
                     currentRightPos = 0;
                     currentRightNeg = Math.abs(newVal);
                 }
-
-            } else if (currentRightX !== 0) { 
+            } else if (currentRightX !== 0 && currentRightX !== 1) { 
                 let divisor = currentRightX;
-                currentRightX = 1;
+                currentRightX = 1; // Menjadi 1x
                 
-                let leftVal = (currentLeftPos > 0) ? currentLeftPos : -currentLeftNeg;
+                let leftVal = currentLeftPos > 0 ? currentLeftPos : -currentLeftNeg;
                 let newVal = leftVal / divisor;
                 
                 if (newVal > 0) {
@@ -901,136 +1246,255 @@
             }
             
             btnDivide.style.display = 'none';
-            setManualControlsEnabled(true);
-            
             drawPans();
             updateBalance();
         }
 
+        // --- MEMBUAT ALGORITMA PENYELESAIAN ---
+        function buildAlgebraSteps(a, op, b, c) {
+            let realB = op === 'subtract' ? -b : b;
+            let stepHtml = '';
+
+            stepHtml += `
+                <div class="congrats-banner">
+                    <h3>🎉 Hebat! Kamu Berhasil Menemukan Solusinya!</h3>
+                    <p>Mari kita ulas langkah-langkah penyelesaian formal aljabar dari persamaan yang baru saja kamu simulasikan.</p>
+                </div>
+            `;
+
+            // Persamaan awal
+            let opSign = realB >= 0 ? '+' : '-';
+            let formattedB = Math.abs(realB);
+            stepHtml += `
+                <div class="step-card">
+                    <h4>Langkah 1: Identifikasi Persamaan Awal</h4>
+                    <p>Persamaan matematika yang diatur pada timbangan:</p>
+                    <div class="math-block">${a}x ${opSign} ${formattedB} = ${c}</div>
+                </div>
+            `;
+
+            // Langkah eliminasi konstanta b
+            let elimStep = '';
+            let finalLeftTerm = `${a}x`;
+            let rightMathElim = `${c} - (${realB})`;
+            let newC = c - realB;
+            
+            if (realB !== 0) {
+                let opposVal = -realB;
+                let opposSign = opposVal > 0 ? `+ ${opposVal}` : `- ${Math.abs(opposVal)}`;
+                elimStep = `Tambahkan lawan dari konstanta di ruas kiri (yaitu <b>${opposVal}</b>) pada kedua ruas agar variabel terisolasi (menghilangkan kelereng/balon di ruas kiri):`;
+                
+                stepHtml += `
+                    <div class="step-card">
+                        <h4>Langkah 2: Eliminasi Konstanta Ruas Kiri</h4>
+                        <p>${elimStep}</p>
+                        <div class="math-block">${a}x ${opSign} ${formattedB} ${opposSign} = ${c} ${opposSign}</div>
+                        <p style="margin-top: 10px;">Hasil setelah penyederhanaan kedua ruas:</p>
+                        <div class="math-block">${a}x = ${newC}</div>
+                    </div>
+                `;
+            } else {
+                stepHtml += `
+                    <div class="step-card">
+                        <h4>Langkah 2: Eliminasi Konstanta Ruas Kiri</h4>
+                        <p>Karena tidak ada konstanta (b = 0) di ruas kiri, variabel sudah dalam keadaan terisolasi:</p>
+                        <div class="math-block">${a}x = ${newC}</div>
+                    </div>
+                `;
+            }
+
+            // Langkah pembagian koefisien a
+            if (a !== 1) {
+                let divResult = newC / a;
+                stepHtml += `
+                    <div class="step-card">
+                        <h4>Langkah 3: Bagi Kedua Ruas dengan Koefisien Variabel</h4>
+                        <p>Bagi kedua ruas dengan koefisien dari x (yaitu dibagi <b>${a}</b>) untuk menyisakan satu buah variabel saja:</p>
+                        <div class="math-block">(${a}x) / ${a} = ${newC} / ${a}</div>
+                        <p style="margin-top: 10px;">Maka, diperoleh solusi akhir:</p>
+                        <div class="math-block" style="background-color: #27ae60; color: white;">x = ${divResult}</div>
+                    </div>
+                `;
+            } else {
+                stepHtml += `
+                    <div class="step-card">
+                        <h4>Langkah 3: Solusi Akhir</h4>
+                        <p>Karena koefisien dari x sudah bernilai 1, maka solusi langsung ditemukan:</p>
+                        <div class="math-block" style="background-color: #27ae60; color: white;">x = ${newC}</div>
+                    </div>
+                `;
+            }
+
+            algoModalBody.innerHTML = stepHtml;
+        }
+
+        // --- TOMBOL MULAI SIMULASI ---
         function generateEquation() {
-            const valA = parseInt(inputA.value);
-            const valB = parseInt(inputB.value);
-            const valC = parseInt(inputC.value);
-            const valOp = inputOp.value;
+            const valA = parseInt(inputA.value) || 0;
+            const op = inputOp.value;
+            let valB = parseInt(inputB.value) || 0;
+            const valC = parseInt(inputC.value) || 0;
 
-            if (isNaN(valA) || isNaN(valB) || isNaN(valC)) {
-                 displayMessage('ERROR: Semua nilai harus berupa angka.', 'error');
-                 return;
-            }
+            // Validasi Koefisien a tidak boleh 0
             if (valA === 0) {
-                displayMessage('ERROR: Koefisien a tidak boleh 0.', 'error');
+                displayMessage('⚠️ Koefisien "a" tidak boleh 0 agar membentuk Persamaan Linear.', 'error');
                 return;
             }
+
+            // Atur tanda b berdasarkan operasi matematika terpilih
+            let realB = op === 'subtract' ? -valB : valB;
+
+            // Hitung Solusi X secara analitik matematika: ax + b = c  => ax = c - b => x = (c - b) / a
+            const pembilang = valC - realB;
             
-            let numerator;
-            if (valOp === 'add') {
-                numerator = valC - valB; 
-            } else {
-                numerator = valC + valB;
-            }
-            
-            if (numerator % valA !== 0) {
-                let formula = (valOp === 'add') ? '(c-b)' : '(c+b)';
-                displayMessage(`ERROR: Gagal karena ${formula} (${numerator}) harus habis dibagi oleh a (${valA}).`, 'error');
+            // Validasi Nilai x harus berupa bilangan bulat (syarat visualisasi kelereng utuh)
+            if (pembilang % valA !== 0) {
+                displayMessage('⚠️ Persamaan ditolak! Hasil bagi (x) harus berupa bilangan bulat agar kelereng dapat ditampilkan utuh tanpa terpotong.', 'error');
                 return;
             }
-            
-            solutionX = numerator / valA;
-            
-            initialLeftX = valA;
-            // Visualisasi b negatif
-            let effectiveB = (valOp === 'add') ? valB : -valB;
-            
-            if (effectiveB >= 0) {
-                initialLeftPos = effectiveB;
-                initialLeftNeg = 0;
+
+            // Set global solution x
+            solutionX = pembilang / valA;
+            simulationActive = true;
+            solvedModalShown = false; // Reset status pop-up akhir untuk persamaan baru ini
+            btnAlgoBottomShow.style.display = 'none'; // Sembunyikan tombol langkah di awal simulasi baru
+
+            // Bangun langkah-langkah aljabar formal (tapi jangan tampilkan modal dahulu)
+            buildAlgebraSteps(valA, op, valB, valC);
+
+            // Masukkan objek ke cawan secara terpisah (Konsep awal ruas kiri & kanan)
+            currentLeftX = valA;
+            if (realB > 0) {
+                currentLeftPos = realB;
+                currentLeftNeg = 0;
+            } else if (realB < 0) {
+                currentLeftPos = 0;
+                currentLeftNeg = Math.abs(realB);
             } else {
-                initialLeftPos = 0;
-                initialLeftNeg = Math.abs(effectiveB);
+                currentLeftPos = 0;
+                currentLeftNeg = 0;
             }
-            
-            initialRightX = 0;
-            if (valC >= 0) {
-                initialRightPos = valC;
-                initialRightNeg = 0;
+
+            currentRightX = 0;
+            if (valC > 0) {
+                currentRightPos = valC;
+                currentRightNeg = 0;
+            } else if (valC < 0) {
+                currentRightPos = 0;
+                currentRightNeg = Math.abs(valC);
             } else {
-                initialRightPos = 0;
-                initialRightNeg = Math.abs(valC);
-            }
-            
-            equationDisplay.style.display = 'block'; 
-            
-            let displaySign = '';
-            let displayB = Math.abs(valB);
-            
-            if (valOp === 'add') {
-                if (valB < 0) {
-                    displaySign = '-'; 
-                } else {
-                    displaySign = '+'; 
-                }
-            } else { 
-                if (valB < 0) {
-                    displaySign = '+'; 
-                } else {
-                    displaySign = '-'; 
-                }
+                currentRightPos = 0;
+                currentRightNeg = 0;
             }
 
-            let displayA = `${valA}x`;
-            if (valA === 1) {
-                displayA = "x";
-            } else if (valA === -1) {
-                displayA = "-x";
-            }
-
-            equationDisplay.textContent = `${displayA} ${displaySign} ${displayB} = ${valC}`;
-            
-            btnReset.style.display = 'inline-block'; 
-            
-            resetSimulation();
-        }
-        
-        function resetSimulation() {
-            currentLeftX = initialLeftX;
-            currentLeftPos = initialLeftPos;
-            currentLeftNeg = initialLeftNeg;
-            currentRightX = initialRightX;
-            currentRightPos = initialRightPos;
-            currentRightNeg = initialRightNeg;
-
+            // Aktifkan visualisasi & kontrol
+            equationDisplay.style.display = 'block';
+            btnReset.style.display = 'inline-block';
             setManualControlsEnabled(true);
-            btnDivide.style.display = 'none';
             
             drawPans();
             updateBalance();
+            
+            // Beri tahu pengguna bahwa simulasi telah dimulai
+            displayMessage('Simulasi dimulai! Gunakan tombol kontrol di bawah untuk memanipulasi kedua ruas.', 'info');
         }
-        
-        function initEmptyState() {
-            setManualControlsEnabled(false);
-            btnDivide.style.display = 'none';
-            btnReset.style.display = 'none';
+
+        // --- RESET TOTAL SIMULASI KE POSISI 0 ---
+        function resetSimulationToZero() {
+            // Set input forms ke 0
+            inputA.value = 0;
+            inputB.value = 0;
+            inputC.value = 0;
+            inputOp.value = 'add';
+
+            // Reset States
+            solutionX = 0;
+            simulationActive = false;
+            solvedModalShown = false;
+
+            currentLeftX = 0;
+            currentLeftPos = 0;
+            currentLeftNeg = 0;
+            currentRightX = 0;
+            currentRightPos = 0;
+            currentRightNeg = 0;
+
+            // Sembunyikan elemen opsional
             equationDisplay.style.display = 'none';
-            displayMessage('Masukkan nilai a, b, dan c lalu klik Mulai Simulasi', 'info');
+            btnReset.style.display = 'none';
+            btnAlgoBottomShow.style.display = 'none';
+            btnDivide.style.display = 'none';
+
+            // Nonaktifkan kembali kontrol manipulasi manual
+            setManualControlsEnabled(false);
+            setInputsEnabled(true); // Buka kembali kunci seluruh panel input
+
+            // Bersihkan cawan secara visual dan stabilkan neraca
+            drawPans();
+            updateBalance();
+
+            // Atur kembali pesan pemandu
+            displayMessage('Silakan atur persamaan di atas dan klik "Mulai Simulasi"!', 'info');
         }
 
-        btnLeftPosAdd.addEventListener('click', () => { currentLeftPos++; drawPans(); updateBalance(); });
-        btnLeftPosSub.addEventListener('click', () => { if (currentLeftPos > 0) currentLeftPos--; drawPans(); updateBalance(); });
-        btnLeftNegAdd.addEventListener('click', () => { currentLeftNeg++; drawPans(); updateBalance(); });
-        btnLeftNegSub.addEventListener('click', () => { if (currentLeftNeg > 0) currentLeftNeg--; drawPans(); updateBalance(); });
-
-        btnRightPosAdd.addEventListener('click', () => { currentRightPos++; drawPans(); updateBalance(); });
-        btnRightPosSub.addEventListener('click', () => { if (currentRightPos > 0) currentRightPos--; drawPans(); updateBalance(); });
-        btnRightNegAdd.addEventListener('click', () => { currentRightNeg++; drawPans(); updateBalance(); });
-        btnRightNegSub.addEventListener('click', () => { if (currentRightNeg > 0) currentRightNeg--; drawPans(); updateBalance(); });
-
+        // --- LOGIKA TOMBOL EVENT LISTENER ---
         btnGenerate.addEventListener('click', generateEquation);
-        btnReset.addEventListener('click', resetSimulation);
         btnDivide.addEventListener('click', performDivide);
+        btnReset.addEventListener('click', resetSimulationToZero);
 
-        initEmptyState();
+        // --- LOGIKA TOMBOL MANIPULASI MANUAL ---
+        // SISI KIRI
+        btnLeftPosAdd.addEventListener('click', () => {
+            currentLeftPos++;
+            drawPans();
+            updateBalance();
+        });
+        btnLeftPosSub.addEventListener('click', () => {
+            if (currentLeftPos > 0) {
+                currentLeftPos--;
+                drawPans();
+                updateBalance();
+            }
+        });
+        btnLeftNegAdd.addEventListener('click', () => {
+            currentLeftNeg++;
+            drawPans();
+            updateBalance();
+        });
+        btnLeftNegSub.addEventListener('click', () => {
+            if (currentLeftNeg > 0) {
+                currentLeftNeg--;
+                drawPans();
+                updateBalance();
+            }
+        });
+
+        // SISI KANAN
+        btnRightPosAdd.addEventListener('click', () => {
+            currentRightPos++;
+            drawPans();
+            updateBalance();
+        });
+        btnRightPosSub.addEventListener('click', () => {
+            if (currentRightPos > 0) {
+                currentRightPos--;
+                drawPans();
+                updateBalance();
+            }
+        });
+        btnRightNegAdd.addEventListener('click', () => {
+            currentRightNeg++;
+            drawPans();
+            updateBalance();
+        });
+        btnRightNegSub.addEventListener('click', () => {
+            if (currentRightNeg > 0) {
+                currentRightNeg--;
+                drawPans();
+                updateBalance();
+            }
+        });
 
     </script>
-
 </body>
 </html>
